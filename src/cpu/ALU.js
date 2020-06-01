@@ -17,6 +17,10 @@ class ALU {
     return { stack: fn(stack), ...rest };
   }
 
+  static executeState(fn, state) {
+    return fn(state);
+  }
+
   static pushOperand(state, operand) {
     const {
       stack: [x, y, z],
@@ -44,6 +48,9 @@ class ALU {
         break;
       case 'stack':
         newState = ALU.executeStack(operation.fn, state);
+        break;
+      case 'state':
+        newState = ALU.executeState(operation.fn, state);
         break;
       default:
         newState = state;

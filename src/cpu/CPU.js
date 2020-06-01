@@ -2,9 +2,10 @@ import EntryController from './EntryController';
 import ALU from './ALU';
 import entryOperations from './operations/entry-operations';
 import aluOperations from './operations/alu-operations';
+import stateOperations from './operations/state-operations';
 
 class CPU {
-  operations = { ...entryOperations, ...aluOperations };
+  operations = { ...entryOperations, ...aluOperations, ...stateOperations };
 
   controllers = [
     new EntryController(this.operations),

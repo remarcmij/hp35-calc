@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { update } from '../../cpu/redux/actions';
 import CPUContext from '../CPUContext';
 
-const Key = ({ opcode }) => {
+const Key = ({ opcode, ...rest }) => {
   const cpu = useContext(CPUContext);
   const dispatch = useDispatch();
   const cpuState = useSelector((state) => state.cpu);
@@ -17,7 +17,7 @@ const Key = ({ opcode }) => {
   const operation = cpu.getOperation(opcode);
 
   return (
-    <button type="button" onClick={handleClick}>
+    <button type="button" onClick={handleClick} {...rest}>
       {operation.label || opcode}
     </button>
   );
