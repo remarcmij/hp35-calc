@@ -21,5 +21,5 @@ export default {
   MUL: { type: 'binary', label: '×', fn: multiply },
   DIV: { type: 'binary', label: '÷', fn: divide },
   CHS: { type: 'unary', fn: changeSign },
-  PI: { type: 'stack', label: 'PI', fn: pi },
+  PI: { type: 'stack', label: '𝜋', fn: pi },
 };
