@@ -7,15 +7,17 @@ const GridContainer = styled.section`
   grid-template-columns: repeat(20, 1fr);
   grid-column-gap: 2px;
   grid-row-gap: 2px;
-  width: 320px;
-  height: 320px;
+  height: 100%;
+  border-radius: 4px;
+  background-color: #c5cae9;
+  padding: 4px;
 `;
 
-const Key4 = styled(Key)`
+const KeySpan5 = styled(Key)`
   grid-column: auto / span 5;
 `;
 
-const Key5 = styled(Key)`
+const KeySpan4 = styled(Key)`
   grid-column: auto / span 4;
 `;
 
@@ -26,48 +28,48 @@ const EnterKey = styled(Key)`
 const Keypad = () => {
   return (
     <GridContainer>
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
 
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
 
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
-      <Key5 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
+      <KeySpan4 opcode="NOOP" />
 
       <EnterKey opcode="ENTER" />
-      <Key5 opcode="CHS" />
-      <Key5 opcode="EEX" />
-      <Key5 opcode="CLX" />
+      <KeySpan4 opcode="CHS" />
+      <KeySpan4 opcode="EEX" />
+      <KeySpan4 opcode="CLX" />
 
-      <Key4 opcode="SUB" />
-      <Key4 opcode="D7" />
-      <Key4 opcode="D8" />
-      <Key4 opcode="D9" />
+      <KeySpan5 opcode="SUB" />
+      <KeySpan5 opcode="D7" />
+      <KeySpan5 opcode="D8" />
+      <KeySpan5 opcode="D9" />
 
-      <Key4 opcode="ADD" />
-      <Key4 opcode="D4" />
-      <Key4 opcode="D5" />
-      <Key4 opcode="D6" />
+      <KeySpan5 opcode="ADD" />
+      <KeySpan5 opcode="D4" />
+      <KeySpan5 opcode="D5" />
+      <KeySpan5 opcode="D6" />
 
-      <Key4 opcode="MUL" />
-      <Key4 opcode="D1" />
-      <Key4 opcode="D2" />
-      <Key4 opcode="D3" />
+      <KeySpan5 opcode="MUL" />
+      <KeySpan5 opcode="D1" />
+      <KeySpan5 opcode="D2" />
+      <KeySpan5 opcode="D3" />
 
-      <Key4 opcode="DIV" />
-      <Key4 opcode="D0" />
-      <Key4 opcode="DOT" />
-      <Key4 opcode="PI" />
+      <KeySpan5 opcode="DIV" />
+      <KeySpan5 opcode="D0" />
+      <KeySpan5 opcode="DOT" />
+      <KeySpan5 opcode="PI" />
     </GridContainer>
   );
 };

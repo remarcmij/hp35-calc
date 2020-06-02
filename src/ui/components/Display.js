@@ -3,8 +3,11 @@ import { useSelector } from 'react-redux';
 import styled from 'styled-components';
 
 const Container = styled.div`
-  border: solid 1px #ccc;
+  margin: 0 0 2px;
+  padding: 8px;
   border-radius: 4px;
+  background-color: #f0f0f0;
+  box-shadow: inset 0 0 4px #888;
 `;
 
 const NumberRow = styled.div``;
