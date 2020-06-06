@@ -1,9 +1,7 @@
-class ALU {
-  static stackLiftDisablers = new Set(['ENTER', 'CLX']);
+import BaseController from './BaseController';
 
-  constructor(operations) {
-    this.operations = operations;
-  }
+class ALU extends BaseController {
+  static stackLiftDisablers = new Set(['ENTER', 'CLX']);
 
   static executeUnary(fn, { stack: [x, y, z, t], ...rest }) {
     return { stack: [fn(x), y, z, t], ...rest };
@@ -35,28 +33,25 @@ class ALU {
       return ALU.pushOperand(state, operand);
     }
 
-    const operation = this.operations[opcode];
+    const operation = this.getOperation(opcode);
 
-    let newState;
+    const newState = {
+      ...state,
+      stackLift: !ALU.stackLiftDisablers.has(opcode),
+    };
 
     switch (operation.type) {
       case 'unary':
-        newState = ALU.executeUnary(operation.fn, state);
-        break;
+        return ALU.executeUnary(operation.fn, newState);
       case 'binary':
-        newState = ALU.executeBinary(operation.fn, state);
-        break;
+        return ALU.executeBinary(operation.fn, newState);
       case 'stack':
-        newState = ALU.executeStack(operation.fn, state);
-        break;
+        return ALU.executeStack(operation.fn, newState);
       case 'state':
-        newState = ALU.executeState(operation.fn, state);
-        break;
+        return ALU.executeState(operation.fn, newState);
       default:
-        newState = state;
+        return state;
     }
-
-    return { ...newState, stackLift: !ALU.stackLiftDisablers.has(opcode) };
   }
 }
 

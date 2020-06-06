@@ -1,15 +1,16 @@
 import PropTypes from 'prop-types';
-import React, { useCallback, useContext } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import React, { useContext } from 'react';
 import styled from 'styled-components';
-import { update } from '../../cpu/redux/actions';
-import CPUContext from '../CPUContext';
+import KeypadContext from './KeypadContext';
+import labels from './labels';
 
 const Button = styled.button`
   flex: 1;
   padding: 0;
   margin: 4px;
   cursor: pointer;
+  font-size: ${(props) => (props.bigger ? '1.3em' : 'inherit')};
+  color: rgba(0, 0, 0, 83%);
   border: none;
   border-radius: 4px;
   background-color: #ffffff;
@@ -25,20 +26,11 @@ const Button = styled.button`
 `;
 
 const Key = ({ opcode, ...rest }) => {
-  const cpu = useContext(CPUContext);
-  const dispatch = useDispatch();
-  const cpuState = useSelector((state) => state.cpu);
-
-  const handleClick = useCallback(() => {
-    const newState = cpu.execute(cpuState, opcode);
-    dispatch(update(newState));
-  }, [cpu, cpuState, opcode, dispatch]);
-
-  const operation = cpu.getOperation(opcode);
+  const handleClick = useContext(KeypadContext);
 
   return (
-    <Button type="button" onClick={handleClick} {...rest}>
-      {operation.label || opcode}
+    <Button type="button" onClick={() => handleClick(opcode)} {...rest}>
+      {labels[opcode] || opcode}
     </Button>
   );
 };

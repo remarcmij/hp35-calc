@@ -1,16 +1,18 @@
-import EntryController from './EntryController';
-import ALU from './ALU';
-import entryOperations from './operations/entry-operations';
-import aluOperations from './operations/alu-operations';
-import stateOperations from './operations/state-operations';
+import InstructionSet from './InstructionSet';
 
 class CPU {
-  operations = { ...entryOperations, ...aluOperations, ...stateOperations };
+  controllers = [];
 
-  controllers = [
-    new EntryController(this.operations),
-    new ALU(this.operations),
-  ];
+  instructionSet = new InstructionSet();
+
+  addOperations(operations) {
+    this.instructionSet.addOperations(operations);
+  }
+
+  addController(controller) {
+    controller.setCPU(this);
+    this.controllers.unshift(controller);
+  }
 
   execute(state, opcode) {
     return this.controllers.reduce(
@@ -20,11 +22,7 @@ class CPU {
   }
 
   getOperation(opcode) {
-    const operation = this.operations[opcode];
-    if (!operation) {
-      throw new Error(`Unrecognized opcode: ${opcode}`);
-    }
-    return operation;
+    return this.instructionSet.getOperation(opcode);
   }
 }
 

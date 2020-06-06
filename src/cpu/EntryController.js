@@ -1,8 +1,6 @@
-class EntryController {
-  constructor(operations) {
-    this.operations = operations;
-  }
+import BaseController from './BaseController';
 
+class EntryController extends BaseController {
   execute(state, opcode) {
     const code = opcode === 'CHS' && state.buffer !== '' ? 'CHS_ENTRY' : opcode;
     const {
@@ -10,7 +8,8 @@ class EntryController {
       buffer,
       stackLift,
     } = state;
-    const operation = this.operations[code];
+    const operation = this.getOperation(code);
+
     switch (operation.type) {
       case 'entry': {
         const stack = buffer === '' && stackLift ? [x, x, y, z] : state.stack;

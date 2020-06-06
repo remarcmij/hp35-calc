@@ -1,3 +1,5 @@
+import C from '../../shared/opcodes';
+
 export const MAX_SIGNIFICANT_DIGITS = 14;
 
 const splitNumber = (buffer) => {
@@ -5,15 +7,15 @@ const splitNumber = (buffer) => {
   if (!matches) {
     return [buffer, ''];
   }
-  const [, mantissa, exponent = ''] = matches;
-  return [mantissa, exponent];
+  const [, significand, exponent = ''] = matches;
+  return [significand, exponent];
 };
 
-const joinNumber = (mantissa, exponent) =>
-  mantissa + (exponent ? `e${exponent}` : '');
+const joinNumber = (significand, exponent) =>
+  significand + (exponent ? `e${exponent}` : '');
 
 const digit = (char) => (buffer) => {
-  let [mantissa, exponent] = splitNumber(buffer || '0');
+  let [significand, exponent] = splitNumber(buffer || '0');
 
   if (exponent) {
     if (exponent === '+0') {
@@ -24,26 +26,26 @@ const digit = (char) => (buffer) => {
       exponent += char;
     }
   } else {
-    if (mantissa === '0') {
-      mantissa = char;
-    } else if (mantissa === '-0') {
-      mantissa = `-${char}`;
+    if (significand === '0') {
+      significand = char;
+    } else if (significand === '-0') {
+      significand = `-${char}`;
     } else {
-      mantissa += char;
+      significand += char;
     }
     const maxMantissaLength =
       MAX_SIGNIFICANT_DIGITS +
-      (mantissa.startsWith('-') ? 1 : 0) +
-      (mantissa.includes('.') ? 1 : 0);
-    mantissa = mantissa.slice(0, maxMantissaLength);
+      (significand.startsWith('-') ? 1 : 0) +
+      (significand.includes('.') ? 1 : 0);
+    significand = significand.slice(0, maxMantissaLength);
   }
 
-  return joinNumber(mantissa, exponent);
+  return joinNumber(significand, exponent);
 };
 
 // TODO: remove i@
 
-const dot = (buffer) => {
+const decimal = (buffer) => {
   const matches = (buffer || '0').match(/^(.*[i@])?(.*)?$/);
 
   // Do nothing  (return early if the buffer already contains a decimal or an exponent
@@ -55,89 +57,38 @@ const dot = (buffer) => {
 };
 
 const enterExponent = (buffer) => {
-  const [mantissa, exponent] = splitNumber(buffer);
-  return joinNumber(mantissa || '1', exponent || '+0');
+  const [significand, exponent] = splitNumber(buffer);
+  return joinNumber(significand || '1', exponent || '+0');
 };
 
 export const changeSign = (buffer) => {
   if (buffer === '') {
     return buffer;
   }
-  let [mantissa, exponent] = splitNumber(buffer);
+  let [significand, exponent] = splitNumber(buffer);
   if (exponent) {
     const sign = exponent.startsWith('-') ? '+' : '-';
     exponent = sign + exponent.slice(1);
   } else {
-    mantissa = mantissa.startsWith('-')
-      ? mantissa.slice(1)
-      : '-'.concat(mantissa);
+    significand = significand.startsWith('-')
+      ? significand.slice(1)
+      : '-'.concat(significand);
   }
-  return joinNumber(mantissa, exponent);
+  return joinNumber(significand, exponent);
 };
 
 export default {
-  CHS_ENTRY: {
-    fn: changeSign,
-    type: 'entry',
-    label: '+/-',
-  },
-  D0: {
-    fn: digit('0'),
-    type: 'entry',
-    label: '0',
-  },
-  D1: {
-    fn: digit('1'),
-    type: 'entry',
-    label: '1',
-  },
-  D2: {
-    fn: digit('2'),
-    type: 'entry',
-    label: '2',
-  },
-  D3: {
-    fn: digit('3'),
-    type: 'entry',
-    label: '3',
-  },
-  D4: {
-    fn: digit('4'),
-    type: 'entry',
-    label: '4',
-  },
-  D5: {
-    fn: digit('5'),
-    type: 'entry',
-    label: '5',
-  },
-  D6: {
-    fn: digit('6'),
-    type: 'entry',
-    label: '6',
-  },
-  D7: {
-    fn: digit('7'),
-    type: 'entry',
-    label: '7',
-  },
-  D8: {
-    fn: digit('8'),
-    type: 'entry',
-    label: '8',
-  },
-  D9: {
-    fn: digit('9'),
-    type: 'entry',
-    label: '9',
-  },
-  DOT: {
-    fn: dot,
-    type: 'entry',
-    label: '•',
-  },
-  EEX: {
-    fn: enterExponent,
-    type: 'entry',
-  },
+  CHS_ENTRY: { type: 'entry', fn: changeSign },
+  [C.D0]: { type: 'entry', fn: digit('0') },
+  [C.D1]: { type: 'entry', fn: digit('1') },
+  [C.D2]: { type: 'entry', fn: digit('2') },
+  [C.D3]: { type: 'entry', fn: digit('3') },
+  [C.D4]: { type: 'entry', fn: digit('4') },
+  [C.D5]: { type: 'entry', fn: digit('5') },
+  [C.D6]: { type: 'entry', fn: digit('6') },
+  [C.D7]: { type: 'entry', fn: digit('7') },
+  [C.D8]: { type: 'entry', fn: digit('8') },
+  [C.D9]: { type: 'entry', fn: digit('9') },
+  [C.DECIMAL]: { type: 'entry', fn: decimal },
+  [C.EEX]: { type: 'entry', fn: enterExponent },
 };

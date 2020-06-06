@@ -1,3 +1,5 @@
+import C from '../../shared/opcodes';
+
 const add = (x, y) => y + x;
 
 const subtract = (x, y) => y - x;
@@ -16,10 +18,10 @@ const pi = ([x, y, z]) => [Math.PI, x, y, z];
 const changeSign = (x) => -x;
 
 export default {
-  ADD: { type: 'binary', label: '+', fn: add },
-  SUB: { type: 'binary', label: '-', fn: subtract },
-  MUL: { type: 'binary', label: '×', fn: multiply },
-  DIV: { type: 'binary', label: '÷', fn: divide },
-  CHS: { type: 'unary', fn: changeSign },
-  PI: { type: 'stack', label: '𝜋', fn: pi },
+  [C.ADD]: { type: 'binary', fn: add },
+  [C.SUB]: { type: 'binary', fn: subtract },
+  [C.MUL]: { type: 'binary', fn: multiply },
+  [C.DIV]: { type: 'binary', fn: divide },
+  [C.CHS]: { type: 'unary', fn: changeSign },
+  [C.PI]: { type: 'stack', fn: pi },
 };

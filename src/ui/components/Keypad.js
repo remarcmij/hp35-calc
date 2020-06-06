@@ -1,6 +1,12 @@
+import PropTypes from 'prop-types';
 import React from 'react';
+import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
+import { update } from '../../cpu/redux/actions';
+import C from '../../shared/opcodes';
+import { toggleArcMode } from '../redux/actions';
 import Key from './Key';
+import KeypadContext from './KeypadContext';
 
 const GridContainer = styled.section`
   display: grid;
@@ -25,53 +31,85 @@ const EnterKey = styled(Key)`
   grid-column: auto / span 8;
 `;
 
-const Keypad = () => {
+const arcMappings = {
+  [C.SIN]: C.ASIN,
+  [C.COS]: C.ACOS,
+  [C.TAN]: C.ATAN,
+};
+
+const Keypad = ({ cpu }) => {
+  const dispatch = useDispatch();
+  const cpuState = useSelector((state) => state.cpu);
+  const { arcMode } = useSelector((state) => state.ui);
+
+  const handleClick = (opcode) => {
+    const operation = cpu.getOperation(opcode);
+    if (operation.type === 'action') {
+      dispatch(operation.action());
+      return;
+    }
+
+    const targetOpcode = arcMode ? arcMappings[opcode] || opcode : opcode;
+    const newState = cpu.execute(cpuState, targetOpcode);
+    dispatch(update(newState));
+    if (arcMode) {
+      dispatch(toggleArcMode());
+    }
+  };
+
   return (
-    <GridContainer>
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
+    <KeypadContext.Provider value={handleClick}>
+      <GridContainer>
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
 
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.ARC} />
+        <KeySpan4 opcode={C.SIN} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
 
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
-      <KeySpan4 opcode="NOOP" />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.NOOP} />
 
-      <EnterKey opcode="ENTER" />
-      <KeySpan4 opcode="CHS" />
-      <KeySpan4 opcode="EEX" />
-      <KeySpan4 opcode="CLX" />
+        <EnterKey opcode={C.ENTER} />
+        <KeySpan4 opcode={C.CHS} />
+        <KeySpan4 opcode={C.EEX} />
+        <KeySpan4 opcode={C.CLX} />
 
-      <KeySpan5 opcode="SUB" />
-      <KeySpan5 opcode="D7" />
-      <KeySpan5 opcode="D8" />
-      <KeySpan5 opcode="D9" />
+        <KeySpan5 opcode={C.SUB} bigger />
+        <KeySpan5 opcode={C.D7} />
+        <KeySpan5 opcode={C.D8} />
+        <KeySpan5 opcode={C.D9} />
 
-      <KeySpan5 opcode="ADD" />
-      <KeySpan5 opcode="D4" />
-      <KeySpan5 opcode="D5" />
-      <KeySpan5 opcode="D6" />
+        <KeySpan5 opcode={C.ADD} bigger />
+        <KeySpan5 opcode={C.D4} />
+        <KeySpan5 opcode={C.D5} />
+        <KeySpan5 opcode={C.D6} />
 
-      <KeySpan5 opcode="MUL" />
-      <KeySpan5 opcode="D1" />
-      <KeySpan5 opcode="D2" />
-      <KeySpan5 opcode="D3" />
+        <KeySpan5 opcode={C.MUL} bigger />
+        <KeySpan5 opcode={C.D1} />
+        <KeySpan5 opcode={C.D2} />
+        <KeySpan5 opcode={C.D3} />
 
-      <KeySpan5 opcode="DIV" />
-      <KeySpan5 opcode="D0" />
-      <KeySpan5 opcode="DOT" />
-      <KeySpan5 opcode="PI" />
-    </GridContainer>
+        <KeySpan5 opcode={C.DIV} bigger />
+        <KeySpan5 opcode={C.D0} />
+        <KeySpan5 opcode={C.DECIMAL} />
+        <KeySpan5 opcode={C.PI} />
+      </GridContainer>
+    </KeypadContext.Provider>
   );
+};
+
+Keypad.propTypes = {
+  // eslint-disable-next-line react/forbid-prop-types
+  cpu: PropTypes.object.isRequired,
 };
 
 export default Keypad;

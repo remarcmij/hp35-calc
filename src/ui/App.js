@@ -1,11 +1,10 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import styled from 'styled-components';
+import cpu from '../cpu';
 import store from '../store';
 import Display from './components/Display';
 import Keypad from './components/Keypad';
-import CPUContext from './CPUContext';
-import cpu from '../cpu';
 
 const Container = styled.main`
   display: flex;
@@ -31,12 +30,10 @@ const Container = styled.main`
 const App = () => {
   return (
     <Provider store={store}>
-      <CPUContext.Provider value={cpu}>
-        <Container>
-          <Display />
-          <Keypad />
-        </Container>
-      </CPUContext.Provider>
+      <Container>
+        <Display />
+        <Keypad cpu={cpu} />
+      </Container>
     </Provider>
   );
 };
