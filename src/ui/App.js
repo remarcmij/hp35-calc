@@ -2,12 +2,15 @@ import React from 'react';
 import { Provider } from 'react-redux';
 import styled from 'styled-components';
 import Div100vh from 'react-div-100vh';
+import { isMobile } from 'react-device-detect';
 import cpu from '../cpu';
 import store from '../store';
 import Display from './components/Display';
 import Keypad from './components/Keypad';
 
-const Container = styled(Div100vh)`
+const RegularDiv = styled.div``;
+
+const Container = styled(isMobile ? Div100vh : RegularDiv)`
   display: flex;
   box-sizing: border-box;
   justify-content: center;
