@@ -65,7 +65,7 @@ const Keypad = ({ cpu }) => {
         <KeySpan4 opcode={C.EXP} zoom />
         <KeySpan4 opcode={C.CLR} />
 
-        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.SQRT} />
         <KeySpan4 opcode={C.ARC} />
         <KeySpan4 opcode={C.SIN} />
         <KeySpan4 opcode={C.COS} />

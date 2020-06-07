@@ -22,6 +22,7 @@ export default {
   [C.POW]: '𝑥<sup>𝑦</sup>',
   [C.RECIPROCAL]: '<sup>1</sup>/𝑥',
   [C.ROLL_DOWN]: 'R↓',
+  [C.SQRT]: '√𝑥',
   [C.SUB]: '-',
   [C.SWAP]: '𝑥↔︎𝑦',
 };

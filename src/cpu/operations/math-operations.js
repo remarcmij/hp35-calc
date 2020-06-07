@@ -36,4 +36,5 @@ export default {
   [C.LN]: { type: 'monadic', fn: Math.log },
   [C.EXP]: { type: 'monadic', fn: Math.exp },
   [C.RECIPROCAL]: { type: 'monadic', fn: reciproc },
+  [C.SQRT]: { type: 'monadic', fn: Math.sqrt },
 };
