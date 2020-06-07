@@ -24,7 +24,7 @@ const ErrorRow = styled.div`
 `;
 
 const format = (x) =>
-  (x > 1e10 || x < 1e-2) && x !== 0 ? x.toExponential() : x.toLocaleString();
+  (x > 1e10 || x < 1e-2) && x !== 0 ? x.toExponential() : x.toString();
 
 const Display = () => {
   const {

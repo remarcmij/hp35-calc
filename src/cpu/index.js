@@ -1,7 +1,7 @@
-import ALU from './ALU';
 import CPU from './CPU';
-import EntryController from './EntryController';
-import ErrorController from './ErrorController';
+import aluOperationHandler from './operation-handlers/alu-operation-handler';
+import entryOperationHandler from './operation-handlers/entry-operation-handler';
+import errorHandler from './operation-handlers/error-handler';
 import aluOperations from './operations/alu-operations';
 import entryOperations from './operations/entry-operations';
 import stateOperations from './operations/state-operations';
@@ -11,8 +11,8 @@ cpu.addOperations(aluOperations);
 cpu.addOperations(entryOperations);
 cpu.addOperations(stateOperations);
 
-cpu.addController(new ErrorController());
-cpu.addController(new ALU());
-cpu.addController(new EntryController());
+cpu.addOperationHandler(errorHandler);
+cpu.addOperationHandler(aluOperationHandler);
+cpu.addOperationHandler(entryOperationHandler);
 
 export default cpu;

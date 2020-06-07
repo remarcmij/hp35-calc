@@ -1,7 +1,8 @@
+import C from '../shared/opcodes';
 import InstructionSet from './InstructionSet';
 
 class CPU {
-  controllers = [];
+  operationHandlers = [];
 
   instructionSet = new InstructionSet();
 
@@ -9,14 +10,22 @@ class CPU {
     this.instructionSet.addOperations(operations);
   }
 
-  addController(controller) {
-    controller.setCPU(this);
-    this.controllers.push(controller);
+  addOperationHandler(handler) {
+    this.operationHandlers.push(handler);
   }
 
   execute(state, opcode) {
-    const newState = this.controllers.reduceRight(
-      (acc, controller) => controller.execute(acc, opcode),
+    let operation;
+    if (typeof opcode === 'number') {
+      operation = opcode;
+    } else {
+      const code =
+        opcode === C.CHS && state.buffer !== '' ? C.CHS_BUFFER : opcode;
+      operation = this.getOperation(code);
+    }
+
+    const newState = this.operationHandlers.reduceRight(
+      (acc, operationHandler) => operationHandler(acc, operation),
       state
     );
     newState.lastOpcode = opcode;
