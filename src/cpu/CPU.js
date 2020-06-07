@@ -11,11 +11,11 @@ class CPU {
 
   addController(controller) {
     controller.setCPU(this);
-    this.controllers.unshift(controller);
+    this.controllers.push(controller);
   }
 
   execute(state, opcode) {
-    const newState = this.controllers.reduce(
+    const newState = this.controllers.reduceRight(
       (acc, controller) => controller.execute(acc, opcode),
       state
     );
