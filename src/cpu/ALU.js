@@ -4,11 +4,11 @@ import BaseController from './BaseController';
 class ALU extends BaseController {
   static stackLiftDisablers = new Set([C.ENTER, C.CLX, C.STO]);
 
-  static executemonadic(fn, { stack: [x, y, z, t], ...rest }) {
+  static executeMonadic(fn, { stack: [x, y, z, t], ...rest }) {
     return { stack: [fn(x), y, z, t], ...rest };
   }
 
-  static executedyadic(fn, { stack: [x, y, z, t], ...rest }) {
+  static executedDyadic(fn, { stack: [x, y, z, t], ...rest }) {
     return { stack: [fn(x, y), z, t, t], ...rest };
   }
 
@@ -43,9 +43,9 @@ class ALU extends BaseController {
 
     switch (operation.type) {
       case 'monadic':
-        return ALU.executemonadic(operation.fn, newState);
+        return ALU.executeMonadic(operation.fn, newState);
       case 'dyadic':
-        return ALU.executedyadic(operation.fn, newState);
+        return ALU.executedDyadic(operation.fn, newState);
       case 'stack':
         return ALU.executeStack(operation.fn, newState);
       case 'state':
