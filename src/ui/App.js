@@ -1,16 +1,17 @@
 import React from 'react';
 import { Provider } from 'react-redux';
 import styled from 'styled-components';
+import Div100vh from 'react-div-100vh';
 import cpu from '../cpu';
 import store from '../store';
 import Display from './components/Display';
 import Keypad from './components/Keypad';
 
-const Container = styled.main`
+const Container = styled(Div100vh)`
   display: flex;
+  box-sizing: border-box;
   justify-content: center;
   flex-direction: column;
-  box-sizing: border-box;
   margin: 0 auto;
   border-radius: 4px;
   border: solid 1px gray;

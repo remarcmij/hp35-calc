@@ -9,11 +9,11 @@ import Key from './Key';
 import KeypadContext from './KeypadContext';
 
 const GridContainer = styled.section`
+  flex: 1;
   display: grid;
   grid-template-columns: repeat(20, 1fr);
   grid-column-gap: 2px;
   grid-row-gap: 2px;
-  height: 100%;
   border-radius: 4px;
   background-color: #c5cae9;
   padding: 4px;
