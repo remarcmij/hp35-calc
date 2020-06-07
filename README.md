@@ -1,5 +1,7 @@
 # HP-35 Emulator Project
 
+Live: https://hp35-calc.netlify.app
+
 ![HP-35 Scientific Calculator](http://hpmemoryproject.org/pict/wall_b/hp35.jpg)
 
 The HP-35 was Hewlett-Packard's first pocket calculator and the world's first scientific pocket calculator. Read more on [Wikipedia](https://en.wikipedia.org/wiki/HP-35).
@@ -41,25 +43,3 @@ http://sliderulemuseum.com/Calculators/HP-25_OwnersHandbook.pdf
 - [For iOS](https://itunes.apple.com/us/app/hp-prime-free/id1208226883?mt=8) (App Store)
 - For Windows and Mac: ftp://ftp.hp.com/pub/calculators/Prime/
 - [HP Prime Manual](http://h10032.www1.hp.com/ctg/Manual/c04773072) (for Windows version)
-
-
-## Technologies and Concepts
-
-The following technologies and concepts are expected to be used for this project:
-
-- React
-- Styled Components
-- OOP
-- [Separation of Concerns](https://en.wikipedia.org/wiki/Separation_of_concerns) (computation vs presentation)
-- Unit testing
-
-### Orthogonality
-
->Orthogonality is a critical concept if you want to produce systems that are easy to design, build, test, and extend. However, the concept of orthogonality is rarely taught directly. Often it is an implicit feature of various other methods and techniques you learn. This is a mistake. Once you learn to apply the principle of orthogonality directly, you'll notice an immediate improvement in the quality of systems you produce. What Is Orthogonality? "Orthogonality" is a term borrowed from geometry. Two lines are orthogonal if they meet at right angles, such as the axes on a graph. In vector terms, the two lines are independent. Move along one of the lines, and your position projected onto the other doesn't change.
->
->In computing, the term has come to signify a kind of independence or decoupling. Two or more things are orthogonal if changes in one do not affect any of the others. In a well-designed system, the database code will be orthogonal to the user interface: you can change the interface without affecting
->
->Source: Hunt, Andrew. _The Pragmatic Programmer._ Pearson Education. Kindle Edition.
-
-
-![hardware illustration](./docs/assets/hardware.jpg)
