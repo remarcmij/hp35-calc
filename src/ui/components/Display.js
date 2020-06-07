@@ -23,8 +23,12 @@ const ErrorRow = styled.div`
   }
 `;
 
-const format = (x) =>
-  (x > 1e10 || x < 1e-2) && x !== 0 ? x.toExponential() : x.toString();
+const format = (x) => {
+  const absX = Math.abs(x);
+  return (absX > 1e10 || absX < 1e-2) && x !== 0
+    ? x.toExponential()
+    : x.toString();
+};
 
 const Display = () => {
   const {
