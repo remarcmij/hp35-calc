@@ -1,8 +1,10 @@
+import C from '../shared/opcodes';
 import BaseController from './BaseController';
 
 class EntryController extends BaseController {
   execute(state, opcode) {
-    const code = opcode === 'CHS' && state.buffer !== '' ? 'CHS_ENTRY' : opcode;
+    const code =
+      opcode === C.CHS && state.buffer !== '' ? C.CHS_BUFFER : opcode;
     const {
       stack: [x, y, z, t],
       buffer,

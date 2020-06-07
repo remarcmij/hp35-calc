@@ -1,13 +1,14 @@
+import C from '../shared/opcodes';
 import BaseController from './BaseController';
 
 class ALU extends BaseController {
-  static stackLiftDisablers = new Set(['ENTER', 'CLX']);
+  static stackLiftDisablers = new Set([C.ENTER, C.CLX, C.STO]);
 
-  static executeUnary(fn, { stack: [x, y, z, t], ...rest }) {
+  static executemonadic(fn, { stack: [x, y, z, t], ...rest }) {
     return { stack: [fn(x), y, z, t], ...rest };
   }
 
-  static executeBinary(fn, { stack: [x, y, z, t], ...rest }) {
+  static executedyadic(fn, { stack: [x, y, z, t], ...rest }) {
     return { stack: [fn(x, y), z, t, t], ...rest };
   }
 
@@ -41,10 +42,10 @@ class ALU extends BaseController {
     };
 
     switch (operation.type) {
-      case 'unary':
-        return ALU.executeUnary(operation.fn, newState);
-      case 'binary':
-        return ALU.executeBinary(operation.fn, newState);
+      case 'monadic':
+        return ALU.executemonadic(operation.fn, newState);
+      case 'dyadic':
+        return ALU.executedyadic(operation.fn, newState);
       case 'stack':
         return ALU.executeStack(operation.fn, newState);
       case 'state':

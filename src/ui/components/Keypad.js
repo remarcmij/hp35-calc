@@ -43,9 +43,8 @@ const Keypad = ({ cpu }) => {
   const { arcMode } = useSelector((state) => state.ui);
 
   const handleClick = (opcode) => {
-    const operation = cpu.getOperation(opcode);
-    if (operation.type === 'action') {
-      dispatch(operation.action());
+    if (opcode === C.ARC) {
+      dispatch(toggleArcMode());
       return;
     }
 
@@ -60,55 +59,54 @@ const Keypad = ({ cpu }) => {
   return (
     <KeypadContext.Provider value={handleClick}>
       <GridContainer>
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.POW} zoom />
+        <KeySpan4 opcode={C.LOG} />
+        <KeySpan4 opcode={C.LN} />
+        <KeySpan4 opcode={C.EXP} zoom />
+        <KeySpan4 opcode={C.CLR} />
 
         <KeySpan4 opcode={C.NOOP} />
         <KeySpan4 opcode={C.ARC} />
         <KeySpan4 opcode={C.SIN} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.COS} />
+        <KeySpan4 opcode={C.TAN} />
 
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
-        <KeySpan4 opcode={C.NOOP} />
+        <KeySpan4 opcode={C.RECIPROCAL} zoom />
+        <KeySpan4 opcode={C.SWAP} zoom />
+        <KeySpan4 opcode={C.ROLL_DOWN} />
+        <KeySpan4 opcode={C.STO} />
+        <KeySpan4 opcode={C.RCL} />
 
         <EnterKey opcode={C.ENTER} />
         <KeySpan4 opcode={C.CHS} />
         <KeySpan4 opcode={C.EEX} />
         <KeySpan4 opcode={C.CLX} />
 
-        <KeySpan5 opcode={C.SUB} bigger />
+        <KeySpan5 opcode={C.SUB} zoom />
         <KeySpan5 opcode={C.D7} />
         <KeySpan5 opcode={C.D8} />
         <KeySpan5 opcode={C.D9} />
 
-        <KeySpan5 opcode={C.ADD} bigger />
+        <KeySpan5 opcode={C.ADD} zoom />
         <KeySpan5 opcode={C.D4} />
         <KeySpan5 opcode={C.D5} />
         <KeySpan5 opcode={C.D6} />
 
-        <KeySpan5 opcode={C.MUL} bigger />
+        <KeySpan5 opcode={C.MUL} zoom />
         <KeySpan5 opcode={C.D1} />
         <KeySpan5 opcode={C.D2} />
         <KeySpan5 opcode={C.D3} />
 
-        <KeySpan5 opcode={C.DIV} bigger />
+        <KeySpan5 opcode={C.DIV} zoom />
         <KeySpan5 opcode={C.D0} />
         <KeySpan5 opcode={C.DECIMAL} />
-        <KeySpan5 opcode={C.PI} />
+        <KeySpan5 opcode={C.PI} zoom />
       </GridContainer>
     </KeypadContext.Provider>
   );
 };
 
 Keypad.propTypes = {
-  // eslint-disable-next-line react/forbid-prop-types
   cpu: PropTypes.object.isRequired,
 };
 

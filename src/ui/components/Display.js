@@ -12,6 +12,20 @@ const Container = styled.div`
 
 const NumberRow = styled.div``;
 
+const ErrorRow = styled.div`
+  color: red;
+  font-variant: small-caps;
+  animation: blinker 1s linear infinite;
+  @keyframes blinker {
+    50% {
+      opacity: 0;
+    }
+  }
+`;
+
+const format = (x) =>
+  (x > 1e10 || x < 1e-2) && x !== 0 ? x.toExponential() : x.toLocaleString();
+
 const Display = () => {
   const {
     stack: [x, y, z, t],
@@ -20,15 +34,13 @@ const Display = () => {
   } = useSelector((state) => state.cpu);
   return (
     <Container>
+      <NumberRow>𝑡: {format(t)}</NumberRow>
+      <NumberRow>𝑧: {format(z)}</NumberRow>
+      <NumberRow>𝑦: {format(y)}</NumberRow>
       {error ? (
-        error.message
+        <ErrorRow>𝑥: error</ErrorRow>
       ) : (
-        <>
-          <NumberRow>𝑡: {t}</NumberRow>
-          <NumberRow>𝑧: {z}</NumberRow>
-          <NumberRow>𝑦: {y}</NumberRow>
-          <NumberRow>𝑥: {buffer || x}</NumberRow>
-        </>
+        <NumberRow>𝑥: {buffer || format(x)}</NumberRow>
       )}
     </Container>
   );

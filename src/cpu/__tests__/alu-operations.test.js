@@ -1,6 +1,6 @@
+import cpu from '..';
 import C from '../../shared/opcodes';
-
-import cpu, { initialState } from '..';
+import initialState from '../initialState';
 
 describe('Math tests', () => {
   test(C.ADD, () => {

@@ -15,10 +15,12 @@ class CPU {
   }
 
   execute(state, opcode) {
-    return this.controllers.reduce(
+    const newState = this.controllers.reduce(
       (acc, controller) => controller.execute(acc, opcode),
       state
     );
+    newState.lastOpcode = opcode;
+    return newState;
   }
 
   getOperation(opcode) {

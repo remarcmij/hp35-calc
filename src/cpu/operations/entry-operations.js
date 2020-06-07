@@ -78,7 +78,7 @@ export const changeSign = (buffer) => {
 };
 
 export default {
-  CHS_ENTRY: { type: 'entry', fn: changeSign },
+  CHS_BUFFER: { type: 'entry', fn: changeSign },
   [C.D0]: { type: 'entry', fn: digit('0') },
   [C.D1]: { type: 'entry', fn: digit('1') },
   [C.D2]: { type: 'entry', fn: digit('2') },
