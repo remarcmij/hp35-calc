@@ -1,7 +1,5 @@
 # HP-35 Emulator Project
 
-Live: https://hp35-calc.netlify.app
-
 ![HP-35 Scientific Calculator](http://hpmemoryproject.org/pict/wall_b/hp35.jpg)
 
 The HP-35 was Hewlett-Packard's first pocket calculator and the world's first scientific pocket calculator. Read more on [Wikipedia](https://en.wikipedia.org/wiki/HP-35).
