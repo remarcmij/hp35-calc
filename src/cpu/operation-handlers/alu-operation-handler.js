@@ -26,7 +26,7 @@ const pushOperand = (state, operand) => {
   return { ...rest, stack: [operand, x, y, z] };
 };
 
-export default (state, operation) => {
+export default (state, operation, opcode) => {
   if (typeof operation === 'number') {
     const operand = operation;
     return pushOperand(state, operand);
@@ -34,7 +34,7 @@ export default (state, operation) => {
 
   const newState = {
     ...state,
-    stackLift: !stackLiftDisablers.has(operation),
+    stackLift: !stackLiftDisablers.has(opcode),
   };
 
   switch (operation.type) {

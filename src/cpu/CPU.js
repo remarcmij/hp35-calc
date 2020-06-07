@@ -25,11 +25,14 @@ class CPU {
     }
 
     const newState = this.operationHandlers.reduceRight(
-      (acc, operationHandler) => operationHandler(acc, operation),
+      (acc, operationHandler) => operationHandler(acc, operation, opcode),
       state
     );
-    newState.lastOpcode = opcode;
-    return newState;
+
+    return {
+      ...newState,
+      lastOpcode: opcode,
+    };
   }
 
   getOperation(opcode) {
