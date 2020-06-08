@@ -1,5 +1,5 @@
 class CPU {
-  checkResult({ stack: [x] }) {
+  assertResult({ stack: [x] }) {
     if (!Number.isFinite(x)) {
       throw new Error('Result must be finite');
     }
@@ -17,7 +17,7 @@ class CPU {
         (newState, controller) => controller.execute(newState, opcode),
         state
       );
-      this.checkResult(finalState);
+      this.assertResult(finalState);
       return { ...finalState, lastOpcode: opcode };
     } catch (err) {
       // eslint-disable-next-line no-console
