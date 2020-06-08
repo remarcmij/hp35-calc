@@ -18,23 +18,10 @@ const executeState = (fn, state) => {
   return fn(state);
 };
 
-const pushOperand = (state, operand) => {
-  const {
-    stack: [x, y, z],
-    ...rest
-  } = state;
-  return { ...rest, stack: [operand, x, y, z] };
-};
-
-export default (state, operation, opcode) => {
-  if (typeof operation === 'number') {
-    const operand = operation;
-    return pushOperand(state, operand);
-  }
-
+export default (state, operation, operand) => {
   const newState = {
     ...state,
-    stackLift: !stackLiftDisablers.has(opcode),
+    stackLift: !stackLiftDisablers.has(operation.opcode),
   };
 
   switch (operation.type) {
@@ -43,9 +30,9 @@ export default (state, operation, opcode) => {
     case 'dyadic':
       return executedDyadic(operation.fn, newState);
     case 'stack':
-      return executeStack(operation.fn, newState);
+      return executeStack(operation.fn, newState, operand);
     case 'state':
-      return executeState(operation.fn, newState);
+      return executeState(operation.fn, newState, operand);
     default:
       return state;
   }

@@ -17,7 +17,7 @@ const rcl = (state) => {
   return { ...state, stack };
 };
 
-export default {
-  [C.STO]: { type: 'state', fn: sto },
-  [C.RCL]: { type: 'state', fn: rcl },
-};
+export default [
+  { opcode: C.STO, type: 'state', fn: sto },
+  { opcode: C.RCL, type: 'state', fn: rcl },
+];

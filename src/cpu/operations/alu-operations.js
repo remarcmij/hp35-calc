@@ -3,9 +3,9 @@ import mathOperations from './math-operations';
 import stackOperations from './stack-operations';
 import memoryOperations from './memory-operations';
 
-export default {
+export default [
   ...arithmeticOperations,
   ...mathOperations,
   ...stackOperations,
   ...memoryOperations,
-};
+];

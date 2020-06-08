@@ -1,12 +1,14 @@
 class InstructionSet {
-  operations = {};
+  operations = new Map();
 
   addOperations(operations) {
-    Object.assign(this.operations, operations);
+    operations.forEach((operation) =>
+      this.operations.set(operation.opcode, operation)
+    );
   }
 
   getOperation(opcode) {
-    const operation = this.operations[opcode];
+    const operation = this.operations.get(opcode);
     if (!operation) {
       throw new Error(`invalid opcode: ${opcode}`);
     }

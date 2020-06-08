@@ -77,18 +77,18 @@ export const changeSign = (buffer) => {
   return joinNumber(significand, exponent);
 };
 
-export default {
-  CHS_BUFFER: { type: 'entry', fn: changeSign },
-  [C.D0]: { type: 'entry', fn: digit('0') },
-  [C.D1]: { type: 'entry', fn: digit('1') },
-  [C.D2]: { type: 'entry', fn: digit('2') },
-  [C.D3]: { type: 'entry', fn: digit('3') },
-  [C.D4]: { type: 'entry', fn: digit('4') },
-  [C.D5]: { type: 'entry', fn: digit('5') },
-  [C.D6]: { type: 'entry', fn: digit('6') },
-  [C.D7]: { type: 'entry', fn: digit('7') },
-  [C.D8]: { type: 'entry', fn: digit('8') },
-  [C.D9]: { type: 'entry', fn: digit('9') },
-  [C.DECIMAL]: { type: 'entry', fn: decimal },
-  [C.EEX]: { type: 'entry', fn: enterExponent },
-};
+export default [
+  { opcode: C.CHS_BUFFER, type: 'entry', fn: changeSign },
+  { opcode: C.D0, type: 'entry', fn: digit('0') },
+  { opcode: C.D1, type: 'entry', fn: digit('1') },
+  { opcode: C.D2, type: 'entry', fn: digit('2') },
+  { opcode: C.D3, type: 'entry', fn: digit('3') },
+  { opcode: C.D4, type: 'entry', fn: digit('4') },
+  { opcode: C.D5, type: 'entry', fn: digit('5') },
+  { opcode: C.D6, type: 'entry', fn: digit('6') },
+  { opcode: C.D7, type: 'entry', fn: digit('7') },
+  { opcode: C.D8, type: 'entry', fn: digit('8') },
+  { opcode: C.D9, type: 'entry', fn: digit('9') },
+  { opcode: C.DECIMAL, type: 'entry', fn: decimal },
+  { opcode: C.EEX, type: 'entry', fn: enterExponent },
+];

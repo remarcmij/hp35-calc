@@ -24,17 +24,17 @@ const pow = (x, y) => x ** y;
 
 const reciproc = (x) => 1 / x;
 
-export default {
-  [C.SIN]: { type: 'monadic', fn: sin },
-  [C.ASIN]: { type: 'monadic', fn: asin },
-  [C.COS]: { type: 'monadic', fn: cos },
-  [C.ACOS]: { type: 'monadic', fn: acos },
-  [C.TAN]: { type: 'monadic', fn: tan },
-  [C.ATAN]: { type: 'monadic', fn: atan },
-  [C.POW]: { type: 'dyadic', fn: pow },
-  [C.LOG]: { type: 'monadic', fn: Math.log10 },
-  [C.LN]: { type: 'monadic', fn: Math.log },
-  [C.EXP]: { type: 'monadic', fn: Math.exp },
-  [C.RECIPROCAL]: { type: 'monadic', fn: reciproc },
-  [C.SQRT]: { type: 'monadic', fn: Math.sqrt },
-};
+export default [
+  { opcode: C.SIN, type: 'monadic', fn: sin },
+  { opcode: C.ASIN, type: 'monadic', fn: asin },
+  { opcode: C.COS, type: 'monadic', fn: cos },
+  { opcode: C.ACOS, type: 'monadic', fn: acos },
+  { opcode: C.TAN, type: 'monadic', fn: tan },
+  { opcode: C.ATAN, type: 'monadic', fn: atan },
+  { opcode: C.POW, type: 'dyadic', fn: pow },
+  { opcode: C.LOG, type: 'monadic', fn: Math.log10 },
+  { opcode: C.LN, type: 'monadic', fn: Math.log },
+  { opcode: C.EXP, type: 'monadic', fn: Math.exp },
+  { opcode: C.RECIPROCAL, type: 'monadic', fn: reciproc },
+  { opcode: C.SQRT, type: 'monadic', fn: Math.sqrt },
+];
