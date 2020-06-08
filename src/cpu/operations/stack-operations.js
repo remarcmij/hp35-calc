@@ -17,10 +17,18 @@ const clearX = (state) => {
 
 const clearAll = () => ({ ...initialState });
 
-export default {
-  [C.ENTER]: { type: 'stack', fn: enter },
-  [C.SWAP]: { type: 'stack', fn: swap },
-  [C.ROLL_DOWN]: { type: 'stack', fn: rollDown },
-  [C.CLX]: { type: 'state', fn: clearX },
-  [C.CLR]: { type: 'state', fn: clearAll },
+const push = ([x, y, z], operand) => {
+  if (operand == null) {
+    throw new Error('operand expected');
+  }
+  return [operand, x, y, z];
 };
+
+export default [
+  { opcode: C.ENTER, type: 'stack', fn: enter },
+  { opcode: C.SWAP, type: 'stack', fn: swap },
+  { opcode: C.ROLL_DOWN, type: 'stack', fn: rollDown },
+  { opcode: C.CLX, type: 'state', fn: clearX },
+  { opcode: C.CLR, type: 'state', fn: clearAll },
+  { opcode: C.PUSH, type: 'stack', fn: push },
+];

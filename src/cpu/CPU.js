@@ -16,18 +16,26 @@ class CPU {
 
   execute(state, opcode) {
     let operation;
+    let operand = null;
     if (typeof opcode === 'number') {
-      operation = opcode;
+      operand = opcode;
+      operation = this.getOperation(C.PUSH);
     } else {
       const code =
         opcode === C.CHS && state.buffer !== '' ? C.CHS_BUFFER : opcode;
       operation = this.getOperation(code);
     }
 
-    const newState = this.operationHandlers.reduceRight(
-      (acc, operationHandler) => operationHandler(acc, operation, opcode),
-      state
-    );
+    let newState;
+
+    try {
+      newState = this.operationHandlers.reduceRight(
+        (acc, operationHandler) => operationHandler(acc, operation, operand),
+        state
+      );
+    } catch (_) {
+      newState = { ...state, error: true };
+    }
 
     return {
       ...newState,

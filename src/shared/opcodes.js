@@ -30,6 +30,7 @@ export default {
   NOOP: 'NOOP',
   PI: 'PI',
   POW: 'POW',
+  PUSH: 'PUSH',
   RCL: 'RCL',
   RECIPROCAL: 'RECIPROCAL',
   ROLL_DOWN: 'ROLLDOWN',
