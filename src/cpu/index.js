@@ -1,6 +1,6 @@
-import ALUController from './ALUController';
+import ALUController from './controllers/ALUController';
 import CPU from './CPU';
-import EntryController from './EntryController';
+import EntryController from './controllers/EntryController';
 import aluOperations from './operations/alu-operations';
 import entryOperations from './operations/entry-operations';
 

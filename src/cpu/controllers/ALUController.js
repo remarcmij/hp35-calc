@@ -1,4 +1,4 @@
-import C from '../shared/opcodes';
+import C from '../../shared/opcodes';
 import BaseController from './BaseController';
 
 class ALUController extends BaseController {
