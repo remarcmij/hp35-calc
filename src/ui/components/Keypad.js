@@ -2,9 +2,9 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { update } from '../../cpu/redux/actions';
+import { update } from '../../store/cpu/actions';
 import C from '../../shared/opcodes';
-import { toggleArcMode } from '../redux/actions';
+import { toggleArcMode } from '../../store/ui/actions';
 import Key from './Key';
 import KeypadContext from './KeypadContext';
 

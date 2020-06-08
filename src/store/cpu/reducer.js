@@ -1,4 +1,4 @@
-import initialState from '../initialState';
+import initialState from '../../cpu/initialState';
 import { UPDATE } from './constants';
 
 const reducer = (state = initialState, { type, payload }) => {
