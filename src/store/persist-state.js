@@ -1,4 +1,4 @@
-import initialState from '../cpu/initialState';
+import initialState from '../system/initialState';
 
 export const loadState = () => {
   try {

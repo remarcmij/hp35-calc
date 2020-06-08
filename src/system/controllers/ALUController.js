@@ -20,13 +20,13 @@ class ALUController extends BaseController {
     return fn(state);
   }
 
-  execOperation(state, operation, operand) {
-    if (!operation) {
-      return state;
+  assertResult({ stack: [x] }) {
+    if (!Number.isFinite(x)) {
+      throw new Error('Result must be finite');
     }
+  }
 
-    const stackLift = !ALUController.stackLiftDisablers.has(operation.opcode);
-
+  execOperation(state, operation, operand) {
     let newState;
     switch (operation.type) {
       case 'monadic':
@@ -45,7 +45,10 @@ class ALUController extends BaseController {
         throw new Error(`unsupported operation type: ${operation.type}`);
     }
 
-    return { ...newState, stackLift };
+    this.assertResult(newState);
+
+    const stackLift = !ALUController.stackLiftDisablers.has(operation.opcode);
+    return { ...newState, stackLift, buffer: '' };
   }
 }
 

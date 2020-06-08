@@ -1,10 +1,10 @@
-class CPU {
-  assertResult({ stack: [x] }) {
-    if (!Number.isFinite(x)) {
-      throw new Error('Result must be finite');
-    }
-  }
+import C from '../shared/opcodes';
 
+const opcodeMappings = {
+  [C.CHS]: C.CHS_BUFFER,
+};
+
+class MasterController {
   controllers = [];
 
   addController(controller) {
@@ -12,12 +12,14 @@ class CPU {
   }
 
   execute(state, opcode) {
+    // eslint-disable-next-line no-param-reassign
+    opcode = state.buffer !== '' ? opcodeMappings[opcode] || opcode : opcode;
+
     try {
       const finalState = this.controllers.reduceRight(
         (newState, controller) => controller.execute(newState, opcode),
         state
       );
-      this.assertResult(finalState);
       return { ...finalState, lastOpcode: opcode };
     } catch (err) {
       // eslint-disable-next-line no-console
@@ -27,4 +29,4 @@ class CPU {
   }
 }
 
-export default CPU;
+export default MasterController;

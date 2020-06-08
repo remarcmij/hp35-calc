@@ -35,7 +35,7 @@ const Display = () => {
     stack: [x, y, z, t],
     buffer,
     error,
-  } = useSelector((state) => state.cpu);
+  } = useSelector((state) => state.system);
   return (
     <Container>
       <NumberRow>𝑡: {format(t)}</NumberRow>

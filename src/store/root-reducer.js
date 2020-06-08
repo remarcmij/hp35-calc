@@ -1,7 +1,7 @@
 import { combineReducers } from 'redux';
-import cpu from './cpu/reducer';
+import system from './system/reducer';
 import ui from './ui/reducer';
 
-const rootReducer = combineReducers({ cpu, ui });
+const rootReducer = combineReducers({ system, ui });
 
 export default rootReducer;

@@ -35,7 +35,7 @@ const Button = styled.button`
 
 const Key = ({ opcode, ...rest }) => {
   const handleClick = useContext(KeypadContext);
-  const { error } = useSelector((state) => state.cpu);
+  const { error } = useSelector((state) => state.system);
   const disabled = error && ![C.CLX, C.CLR].includes(opcode);
 
   return (

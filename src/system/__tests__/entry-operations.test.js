@@ -1,8 +1,8 @@
-import cpu from '..';
+import masterController from '..';
 import C from '../../shared/opcodes';
 import initialState from '../initialState';
 
-const execute = cpu.execute.bind(cpu);
+const execute = masterController.execute.bind(masterController);
 
 describe('Entry tests', () => {
   test('digits', () => {

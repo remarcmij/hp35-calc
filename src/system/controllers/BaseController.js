@@ -16,16 +16,16 @@ class BaseController {
       opcode = C.PUSH;
     }
 
-    const operation = this.getOperation(opcode);
+    const operation = this.operations.get(opcode);
+    if (!operation) {
+      return state;
+    }
+
     return this.execOperation(state, operation, operand);
   }
 
   execOperation(_state, _operation, _operand) {
     throw new Error('execute method must be overridden');
-  }
-
-  getOperation(opcode) {
-    return this.operations.get(opcode);
   }
 }
 

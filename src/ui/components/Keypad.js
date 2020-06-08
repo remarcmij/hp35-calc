@@ -2,7 +2,7 @@ import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { update } from '../../store/cpu/actions';
+import { update } from '../../store/system/actions';
 import C from '../../shared/opcodes';
 import { toggleArcMode } from '../../store/ui/actions';
 import Key from './Key';
@@ -37,9 +37,9 @@ const arcMappings = {
   [C.TAN]: C.ATAN,
 };
 
-const Keypad = ({ cpu }) => {
+const Keypad = ({ system }) => {
   const dispatch = useDispatch();
-  const cpuState = useSelector((state) => state.cpu);
+  const systemState = useSelector((state) => state.system);
   const { arcMode } = useSelector((state) => state.ui);
 
   const handleClick = (opcode) => {
@@ -49,7 +49,7 @@ const Keypad = ({ cpu }) => {
     }
 
     const targetOpcode = arcMode ? arcMappings[opcode] || opcode : opcode;
-    const newState = cpu.execute(cpuState, targetOpcode);
+    const newState = system.execute(systemState, targetOpcode);
     dispatch(update(newState));
     if (arcMode) {
       dispatch(toggleArcMode());
@@ -107,7 +107,7 @@ const Keypad = ({ cpu }) => {
 };
 
 Keypad.propTypes = {
-  cpu: PropTypes.object.isRequired,
+  system: PropTypes.object.isRequired,
 };
 
 export default Keypad;
