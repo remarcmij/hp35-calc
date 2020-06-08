@@ -5,7 +5,6 @@ export default {
   ASIN: 'ASIN',
   ATAN: 'ATAN',
   CHS: 'CHS',
-  CHS_BUFFER: 'CHS_BUFFER',
   CLR: 'CLR',
   CLX: 'CLX',
   COS: 'COS',

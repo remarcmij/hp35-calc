@@ -1,50 +1,29 @@
-import C from '../shared/opcodes';
-import InstructionSet from './InstructionSet';
-
 class CPU {
-  operationHandlers = [];
-
-  instructionSet = new InstructionSet();
-
-  addOperations(operations) {
-    this.instructionSet.addOperations(operations);
+  checkResult({ stack: [x] }) {
+    if (!Number.isFinite(x)) {
+      throw new Error('Result must be finite');
+    }
   }
 
-  addOperationHandler(handler) {
-    this.operationHandlers.push(handler);
+  controllers = [];
+
+  addController(controller) {
+    this.controllers.push(controller);
   }
 
   execute(state, opcode) {
-    let operation;
-    let operand = null;
-    if (typeof opcode === 'number') {
-      operand = opcode;
-      operation = this.getOperation(C.PUSH);
-    } else {
-      const code =
-        opcode === C.CHS && state.buffer !== '' ? C.CHS_BUFFER : opcode;
-      operation = this.getOperation(code);
-    }
-
-    let newState;
-
     try {
-      newState = this.operationHandlers.reduceRight(
-        (acc, operationHandler) => operationHandler(acc, operation, operand),
+      const finalState = this.controllers.reduceRight(
+        (newState, controller) => controller.execute(newState, opcode),
         state
       );
-    } catch (_) {
-      newState = { ...state, error: true };
+      this.checkResult(finalState);
+      return { ...finalState, lastOpcode: opcode };
+    } catch (err) {
+      // eslint-disable-next-line no-console
+      console.error(err.message);
+      return { ...state, error: true };
     }
-
-    return {
-      ...newState,
-      lastOpcode: opcode,
-    };
-  }
-
-  getOperation(opcode) {
-    return this.instructionSet.getOperation(opcode);
   }
 }
 
