@@ -3,7 +3,6 @@ import { Provider } from 'react-redux';
 import styled from 'styled-components';
 import Div100vh from 'react-div-100vh';
 import { isMobile } from 'react-device-detect';
-import system from '../system';
 import store from '../store';
 import Display from './components/Display';
 import Keypad from './components/Keypad';
@@ -36,7 +35,7 @@ const App = () => {
     <Provider store={store}>
       <Container>
         <Display />
-        <Keypad system={system} />
+        <Keypad />
       </Container>
     </Provider>
   );

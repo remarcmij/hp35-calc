@@ -35,7 +35,7 @@ const Display = () => {
     stack: [x, y, z, t],
     buffer,
     error,
-  } = useSelector((state) => state.system);
+  } = useSelector((state) => state.logic);
   return (
     <Container>
       <NumberRow>𝑡: {format(t)}</NumberRow>

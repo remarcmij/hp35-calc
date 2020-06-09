@@ -1,2 +1,2 @@
 /* eslint-disable import/prefer-default-export */
-export const UPDATE = '@system/UPDATE';
+export const UPDATE = '@logic/UPDATE';

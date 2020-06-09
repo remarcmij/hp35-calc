@@ -1,9 +1,8 @@
-import PropTypes from 'prop-types';
 import React from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import styled from 'styled-components';
-import { update } from '../../store/system/actions';
 import C from '../../shared/opcodes';
+import { execute } from '../../store/logic/actions';
 import { toggleArcMode } from '../../store/ui/actions';
 import Key from './Key';
 import KeypadContext from './KeypadContext';
@@ -37,9 +36,8 @@ const arcMappings = {
   [C.TAN]: C.ATAN,
 };
 
-const Keypad = ({ system }) => {
+const Keypad = () => {
   const dispatch = useDispatch();
-  const systemState = useSelector((state) => state.system);
   const { arcMode } = useSelector((state) => state.ui);
 
   const handleClick = (opcode) => {
@@ -49,8 +47,8 @@ const Keypad = ({ system }) => {
     }
 
     const targetOpcode = arcMode ? arcMappings[opcode] || opcode : opcode;
-    const newState = system.execute(systemState, targetOpcode);
-    dispatch(update(newState));
+    dispatch(execute(targetOpcode));
+
     if (arcMode) {
       dispatch(toggleArcMode());
     }
@@ -104,10 +102,6 @@ const Keypad = ({ system }) => {
       </GridContainer>
     </KeypadContext.Provider>
   );
-};
-
-Keypad.propTypes = {
-  system: PropTypes.object.isRequired,
 };
 
 export default Keypad;

@@ -1,4 +1,4 @@
-import initialState from '../system/initialState';
+import initialState from '../logic/initialState';
 
 export const loadState = () => {
   try {

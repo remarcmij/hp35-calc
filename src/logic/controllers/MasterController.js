@@ -1,4 +1,4 @@
-import C from '../shared/opcodes';
+import C from '../../shared/opcodes';
 
 const opcodeMappings = {
   [C.CHS]: C.CHS_BUFFER,
